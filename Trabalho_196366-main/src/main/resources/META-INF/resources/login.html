@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Biblioteca Digital</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f5f6fa;
+            margin: 40px;
+        }
+        .login-container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #2e308d;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #2e308d;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .error {
+            color: red;
+            text-align: center;
+            margin-bottom: 10px;
+            min-height: 1.2em;
+        }
+    </style>
+</head>
+<body>
+<div class="login-container">
+    <h2>Biblioteca Digital - Login</h2>
+    <!--
+        O formulário deve apontar para o endpoint j_security_check definido pelo
+        mecanismo de autenticação baseado em formulários do Quarkus. Os campos
+        de usuário e senha precisam ter os nomes j_username e j_password para
+        que o mecanismo de segurança reconheça e processe corretamente as
+        credenciais fornecidas【848466333383949†L174-L183】.
+    -->
+    <form action="j_security_check" method="post">
+        <div class="error">
+            <!-- Mensagem de erro exibida via parâmetro na URL (error=true) -->
+            <script>
+                const params = new URLSearchParams(window.location.search);
+                if (params.get('error')) {
+                    document.write('Usuário ou senha inválidos.');
+                }
+            </script>
+        </div>
+        <input type="text" name="j_username" placeholder="Usuário" autocomplete="username" required>
+        <input type="password" name="j_password" placeholder="Senha" autocomplete="current-password" required>
+        <button type="submit">Entrar</button>
+    </form>
+</div>
+</body>
+</html>

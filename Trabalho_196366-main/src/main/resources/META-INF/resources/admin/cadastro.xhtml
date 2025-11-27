@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Cadastrar Livro</title>
+    <meta charset="UTF-8"/>
+    <h:outputStylesheet>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f5f6fa;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #2e308d;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </h:outputStylesheet>
+</h:head>
+
+<h:body>
+<div class="container">
+    <h:form id="formCadastro">
+        <h1>Cadastro de Livro</h1>
+        <!-- Mensagens de feedback -->
+        <p:messages id="msg" autoUpdate="true" closable="true"/>
+
+        <!-- Formulário de cadastro de livro -->
+        <h:panelGrid columns="2" cellpadding="5" style="width:100%">
+            <h:outputLabel value="Título:"/>
+            <p:inputText value="#{cadastroLivroBean.livro.titulo}"
+                         required="true"
+                         requiredMessage="O título é obrigatório."/>
+
+            <h:outputLabel value="ISBN:"/>
+            <p:inputText value="#{cadastroLivroBean.livro.isbn}"/>
+
+            <h:outputLabel value="Disponível:"/>
+            <p:selectBooleanButton value="#{cadastroLivroBean.livro.disponivel}"
+                                   onLabel="Sim" offLabel="Não"/>
+
+            <h:outputLabel value="Autor:"/>
+            <p:selectOneMenu value="#{cadastroLivroBean.idAutorSelecionado}"
+                             required="true"
+                             requiredMessage="Selecione um autor." style="width:100%">
+                <f:selectItem itemLabel="Selecione" itemValue="#{null}"/>
+                <f:selectItems value="#{cadastroLivroBean.autores}" var="a"
+                               itemLabel="#{a.nome}" itemValue="#{a.id}"/>
+            </p:selectOneMenu>
+        </h:panelGrid>
+
+        <!-- Botões de ação -->
+        <div style="margin-top:20px; text-align:right">
+            <p:commandButton value="Salvar" icon="pi pi-check"
+                             actionListener="#{cadastroLivroBean.salvar}"
+                             update="@form"/>
+            <p:commandButton value="Cancelar" icon="pi pi-times"
+                             action="#{cadastroLivroBean.cancelar}"
+                             immediate="true" styleClass="p-button-secondary"/>
+        </div>
+    </h:form>
+</div>
+</h:body>
+</html>
